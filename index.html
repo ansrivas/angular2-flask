@@ -1,5 +1,5 @@
 <html>
-  <head>
+<head>
     <title>Angular 2 QuickStart</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles.css">
@@ -15,21 +15,21 @@
     <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
     <!-- 2. Configure SystemJS -->
     <script>
-      System.config({
+    System.config({
         packages: {
-          app: {
-            format: 'register',
-            defaultExtension: 'js'
-          }
+            app: {
+                format: 'register',
+                defaultExtension: 'js'
+            }
         }
-      });
-      System.import('app/main')
-            .then(null, console.error.bind(console));
+    });
+    System.import('app/main')
+    .then(null, console.error.bind(console));
     </script>
-  </head>
-  <!-- 3. Display the application -->
-  <body>
+    </head>
+    <!-- 3. Display the application -->
+    <body>
     <!--<my-app>Loading...</my-app>-->
     <my-device> </my-device>
-  </body>
-</html>
+    </body>
+    </html>

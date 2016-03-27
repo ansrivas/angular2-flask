@@ -1,6 +1,4 @@
-
-
-
+import random
 from datetime import timedelta
 from flask import make_response, request, current_app
 from functools import update_wrapper
@@ -51,10 +49,29 @@ app = Flask(__name__)
 #     return decorator
 # @crossdomain(origin='*')
 
-
-@app.route('/hello')
+@app.route('/random')
 @cross_origin()
-def hello_world():
+def randomQuote():
+    nouns = ("puppy", "car", "rabbit", "girl", "monkey")
+    verbs = ("runs", "hits", "jumps", "drives", "barfs")
+    adv = ("crazily.", "dutifully.", "foolishly.", "merrily.", "occasionally.")
+    adj = ("adorable", "clueless", "dirty", "odd", "stupid")
+    num = random.randrange(0,5)
+    return nouns[num] + ' ' + verbs[num] + ' ' + adv[num] + ' ' + adj[num]
+
+
+@app.route('/authenticate', methods=['POST'])
+@cross_origin()
+def show_post():
+    name=request.form['username']
+    password=request.form['password']
+    # show the post with the given id, the id is an integer
+    retjson = {'id_token':7}
+    return retjson
+
+@app.route('/secret')
+@cross_origin()
+def secretQuote():
     return 'Hello World!'
 
 if __name__ == '__main__':
