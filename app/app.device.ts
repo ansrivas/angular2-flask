@@ -1,7 +1,7 @@
 import {Component, Injectable} from 'angular2/core';
-import {FORM_PROVIDERS, FormBuilder, Validators} from 'angular2/common';
+import {FORM_PROVIDERS, FormBuilder, Validators, Control, ControlGroup} from 'angular2/common';
 import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
-import { Http, HTTP_PROVIDERS,Headers  } from 'angular2/http';
+import { Http, HTTP_PROVIDERS, Headers  } from 'angular2/http';
 import {ControlMessages} from './control-message.component';
 import {ValidationService} from './validation.service';
 
@@ -20,7 +20,7 @@ import {ValidationService} from './validation.service';
 
     <section>
     <h2>Login</h2>
-    <form [ngFormModel]="userForm" (submit)="saveUser(userForm.value)">
+    <form [ngFormModel]="userForm">
     <label for="name">Name</label>
     <input ngControl="name" id="name" />
     <control-messages control="name"></control-messages>
@@ -29,11 +29,9 @@ import {ValidationService} from './validation.service';
     <input ngControl="email" id="email" />
     <control-messages control="email"></control-messages>
 
-    <button type="submit" [disabled]="!userForm.valid">Submit</button>
+    <button type="submit" (click)="saveUser()" [disabled]="!userForm.valid">Submit</button>
     </form>
     </section>
-
-
 
 
     <section>
@@ -54,85 +52,74 @@ import {ValidationService} from './validation.service';
 
 @Injectable()
 export class AppDevice {
-    title: string;
-    data: string;
-    username: string;
-    email:string;
+
     randomQuote: string;
     secretQuote: string;
-    userForm: any;
+    userForm: ControlGroup;
+    user: Control;
+    email_add: Control;
 
     logError(err) {
         console.error('There was an error: ' + err);
     }
 
-
     constructor(private _formBuilder: FormBuilder,
         public http: Http) {
 
-            this.userForm = this._formBuilder.group({
-                'name': ['', Validators.required],
-                'email': ['', Validators.compose([Validators.required, ValidationService.emailValidator]) ] });
+        this.user = new Control('', Validators.required);
+        this.email_add = new Control('', Validators.compose([Validators.required, ValidationService.emailValidator]));
+        this.userForm = this._formBuilder.group({
+            name: this.user,
+            email: this.email_add
+        });
+    }
 
+    getRandomQuote() {
+        this.http.get('http://localhost:8888/random')
+            .subscribe(
+            data => this.randomQuote = data.text(),
+            err => this.logError(err.text()),
+            () => console.log('Random Quote Complete')
+            );
+    }
 
-                this.username = this.userForm.controls['name'];
-                this.email = this.userForm.controls['email']
+    getSecretQuote() {
+        this.http.get('http://localhost:8888/secret')
+            .subscribe(
+            data => this.secretQuote = data.text(),
+            err => this.logError(err.text()),
+            () => console.log('Secret Quote Complete')
+            );
+    }
 
+    clearAll() {
+        this.randomQuote = "";
+        this.secretQuote = "";
 
-            }
+    }
 
+    saveUser() {
 
+        if (this.userForm.dirty && this.userForm.valid) {
 
+            let creds = JSON.stringify({ username: this.user.value, email: this.email_add.value });
 
+            var headers = new Headers();
+            headers.append('Content-Type', 'application/json');
 
-
-            getRandomQuote() {
-                this.http.get('http://localhost:8888/random')
+            this.http.post('http://localhost:8888/authenticate', creds, {
+                headers: headers
+            })
                 .subscribe(
-                    data => this.randomQuote = data.text(),
-                    err => this.logError(err.text()),
-                    () => console.log('Random Quote Complete')
+                data => this.save(data),
+                err => this.logError(err),
+                () => console.log('Authentication Complete')
                 );
-            }
 
-            getSecretQuote() {
-                this.http.get('http://localhost:8888/secret')
-                .subscribe(
-                    data => this.secretQuote = data.text(),
-                    err => this.logError(err.text()),
-                    () => console.log('Secret Quote Complete')
-                );
-            }
-
-            clearAll(){
-                this.randomQuote = "";
-                this.secretQuote = "";
-
-            }
-
-            saveUser() {
-
-                if (this.userForm.dirty && this.userForm.valid) {
-                    let user = this.userForm.value.name;
-                    let em = this.userForm.value.email;
-                    let creds = JSON.stringify({ username: user, email: em });
-
-                    var headers = new Headers();
-                    headers.append('Content-Type', 'application/json');
-
-                    this.http.post('http://localhost:8888/authenticate', creds, {
-                        headers: headers
-                    })
-                    .subscribe(
-                        data => this.save(data) ,
-                        err => this.logError(err),
-                        () => console.log('Authentication Complete')
-                    );
-
-                }
-            }
-
-            save(data) {
-                console.log('Logged into somewhere', data);
-            }
         }
+    }
+
+    save(data) {
+        console.log('Logged into somewhere', data);
+    }
+}
