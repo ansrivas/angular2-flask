@@ -25,6 +25,10 @@ import {ValidationService} from './validation.service';
     <input ngControl="name" id="name" />
     <control-messages control="name"></control-messages>
 
+    <label for="password">Password</label>
+    <input type="password" ngControl="password" id="password" />
+
+
     <label for="email">Email</label>
     <input ngControl="email" id="email" />
     <control-messages control="email"></control-messages>
@@ -58,7 +62,7 @@ export class AppDevice {
     userForm: ControlGroup;
     user: Control;
     email_add: Control;
-
+    password : Control;
     logError(err) {
         console.error('There was an error: ' + err);
     }
@@ -67,10 +71,12 @@ export class AppDevice {
         public http: Http) {
 
         this.user = new Control('', Validators.required);
+        this.password = new Control('', Validators.required);
         this.email_add = new Control('', Validators.compose([Validators.required, ValidationService.emailValidator]));
         this.userForm = this._formBuilder.group({
             name: this.user,
-            email: this.email_add
+            email: this.email_add,
+            password : this.password
         });
     }
 
