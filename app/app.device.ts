@@ -4,6 +4,10 @@ import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
 import { Http, HTTP_PROVIDERS, Headers  } from 'angular2/http';
 import {ControlMessages} from './control-message.component';
 import {ValidationService} from './validation.service';
+import {TodoInput} from './todo-input';
+import {TodoService} from './todo-service';
+import {TodoList} from './todo-list';
+
 
 @Component({
     selector: 'my-device',
@@ -16,8 +20,8 @@ import {ValidationService} from './validation.service';
     </h2>
     <hr>
     </section>
-
-
+    <todo-input> </todo-input>
+    <todo-list> </todo-list>
     <section>
     <h2>Login</h2>
     <form [ngFormModel]="userForm">
@@ -50,7 +54,7 @@ import {ValidationService} from './validation.service';
     <h3>{{ secretQuote }}</h3>
     <button (click)="getSecretQuote()">Get Secret Quote!</button>
     <section>` ,
-    directives: [ControlMessages]
+    directives: [ControlMessages, TodoInput, TodoList]
 })
 
 
