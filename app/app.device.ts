@@ -74,62 +74,62 @@ export class AppDevice {
     constructor(private _formBuilder: FormBuilder,
         public http: Http) {
 
-        this.user = new Control('', Validators.required);
-        this.password = new Control('', Validators.required);
-        this.email_add = new Control('', Validators.compose([Validators.required, ValidationService.emailValidator]));
-        this.userForm = this._formBuilder.group({
-            name: this.user,
-            email: this.email_add,
-            password : this.password
-        });
-    }
+            this.user = new Control('', Validators.required);
+            this.password = new Control('', Validators.required);
+            this.email_add = new Control('', Validators.compose([Validators.required, ValidationService.emailValidator]));
+            this.userForm = this._formBuilder.group({
+                name: this.user,
+                email: this.email_add,
+                password : this.password
+            });
+        }
 
-    getRandomQuote() {
-        this.http.get('http://localhost:8888/random')
+        getRandomQuote() {
+            this.http.get('http://localhost:8888/random')
             .subscribe(
-            data => this.randomQuote = data.text(),
-            err => this.logError(err.text()),
-            () => console.log('Random Quote Complete')
+                data => this.randomQuote = data.text(),
+                err => this.logError(err.text()),
+                () => console.log('Random Quote Complete')
             );
-    }
+        }
 
-    getSecretQuote() {
-        this.http.get('http://localhost:8888/secret')
+        getSecretQuote() {
+            this.http.get('http://localhost:8888/secret')
             .subscribe(
-            data => this.secretQuote = data.text(),
-            err => this.logError(err.text()),
-            () => console.log('Secret Quote Complete')
+                data => this.secretQuote = data.text(),
+                err => this.logError(err.text()),
+                () => console.log('Secret Quote Complete')
             );
-    }
+        }
 
-    clearAll() {
-        this.randomQuote = "";
-        this.secretQuote = "";
-
-    }
-
-    saveUser() {
-
-        if (this.userForm.dirty && this.userForm.valid) {
-
-            let creds = JSON.stringify({ username: this.user.value, email: this.email_add.value });
-
-            var headers = new Headers();
-            headers.append('Content-Type', 'application/json');
-
-            this.http.post('http://localhost:8888/authenticate', creds, {
-                headers: headers
-            })
-                .subscribe(
-                data => this.save(data),
-                err => this.logError(err),
-                () => console.log('Authentication Complete')
-                );
+        clearAll() {
+            this.randomQuote = "";
+            this.secretQuote = "";
 
         }
-    }
 
-    save(data) {
-        console.log('Logged into somewhere', data);
+        saveUser() {
+
+            if (this.userForm.dirty && this.userForm.valid) {
+
+                let creds = JSON.stringify({ username: this.user.value, email: this.email_add.value });
+
+                var headers = new Headers();
+                headers.append('Content-Type', 'application/json');
+
+                this.http.post('http://localhost:8888/authenticate', creds, {
+                    headers: headers
+                })
+                .subscribe(
+                    data => this.save(data),
+                    err => this.logError(err),
+                    () => console.log('Authentication Complete')
+                );
+
+            }
+        }
+
+        save(data) {
+            console.log('Logged into somewhere', data);
+        }
     }
-}
