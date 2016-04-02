@@ -12,6 +12,7 @@ export class StartedPipe{
 //pipes accept arguments
     transform(value, [status]){
         // return value ;
+        console.log("status is :" + status);
         return value.filter((item) => item.status === status) ;
     }
 

@@ -7,10 +7,11 @@ import {ValidationService} from './validation.service';
 import {TodoInput} from './todo-input';
 import {TodoService} from './todo-service';
 import {TodoList} from './todo-list';
-
+import {StatusSelector} from './status-selector';
 
 @Component({
-    selector: 'my-device',
+    selector: 'my-device' ,
+    directives: [ControlMessages, TodoInput, TodoList, StatusSelector],
     template: `<header>
     <h1 class="title">Angular 2 HTTP</h1>
     </header>
@@ -21,7 +22,8 @@ import {TodoList} from './todo-list';
     <hr>
     </section>
     <todo-input> </todo-input>
-    <todo-list [status]= "'Started'"> </todo-list>
+    <status-selector  (selected)="status=$event"> </status-selector>
+    <todo-list [status]="status"> </todo-list>
     <section>
     <h2>Login</h2>
     <form [ngFormModel]="userForm">
@@ -53,8 +55,7 @@ import {TodoList} from './todo-list';
     <hr>
     <h3>{{ secretQuote }}</h3>
     <button (click)="getSecretQuote()">Get Secret Quote!</button>
-    <section>` ,
-    directives: [ControlMessages, TodoInput, TodoList]
+    <section>`
 })
 
 
@@ -67,6 +68,8 @@ export class AppDevice {
     user: Control;
     email_add: Control;
     password : Control;
+    status : string;
+
     logError(err) {
         console.error('There was an error: ' + err);
     }
