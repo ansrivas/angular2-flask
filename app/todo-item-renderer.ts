@@ -1,4 +1,4 @@
-import {Component, Input} from 'angular2/core' ;
+import {Component, Input, Output, EventEmitter} from 'angular2/core' ;
 
 
 
@@ -12,7 +12,7 @@ template :`
     </style>
     <div>
     <span [ngClass]="todo.status"> {{todo.title }} </span>
-    <button (click)="todo.toggle()">Mark done</button></div>`
+    <button (click)="toggle.emit(todo)">Mark done</button></div>`
 })
 
 export class TodoItemRenderer{
@@ -20,5 +20,8 @@ export class TodoItemRenderer{
 //<span [hidden]="todo.status == 'completed'"> {{todo.title}} </span>
 //ngClass assigns a class to this span tag
 @Input() todo ;
+
+//Setting up custom events, back to parent component, which is todo-list
+@Output()  toggle = new EventEmitter();
 
 }

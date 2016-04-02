@@ -2,16 +2,21 @@ import {Component} from 'angular2/core';
 import {TodoService} from './todo-service';
 import {TodoItemRenderer} from './todo-item-renderer';
 import {SearchPipe} from './search-pipe';
+import {StartedPipe} from './started-pipe';
+
 
 @Component({
     selector:'todo-list',
     directives : [TodoItemRenderer],
-    pipes : [SearchPipe],
+    pipes : [SearchPipe,StartedPipe],
     template:`
     <div>
     <ul>
-    <li *ngFor="#todo of todoservice.todos | search">
-    <todo-item-renderer [todo] = "todo"> </todo-item-renderer>
+    <li *ngFor="#todo of todoservice.todos | started">
+    <todo-item-renderer
+    [todo] = "todo"
+    (toggle) = "todoservice.toggleTodo($event)"
+    > </todo-item-renderer>
     </li>
     </ul>
     </div>`

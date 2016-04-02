@@ -15,6 +15,12 @@ export class TodoService{
         //new array, spread operator ... copy all todos and add a new todo to the end of array
         //reference is changing , the search pipe is working now
         this.todos = [...this.todos, todo];
+    }
 
+    toggleTodo(todo:TodoModel){
+        todo.toggle();
+
+        const i = this.todos.indexOf(todo);
+        this.todos = [...this.todos.slice(0, i), todo, ...this.todos.slice(i+1)];
     }
 }
