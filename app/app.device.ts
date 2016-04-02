@@ -21,7 +21,7 @@ import {TodoList} from './todo-list';
     <hr>
     </section>
     <todo-input> </todo-input>
-    <todo-list> </todo-list>
+    <todo-list [status]= "'Started'"> </todo-list>
     <section>
     <h2>Login</h2>
     <form [ngFormModel]="userForm">

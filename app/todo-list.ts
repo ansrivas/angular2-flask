@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, Input} from 'angular2/core';
 import {TodoService} from './todo-service';
 import {TodoItemRenderer} from './todo-item-renderer';
 import {SearchPipe} from './search-pipe';
@@ -12,7 +12,7 @@ import {StartedPipe} from './started-pipe';
     template:`
     <div>
     <ul>
-    <li *ngFor="#todo of todoservice.todos | started : 'Started'">
+    <li *ngFor="#todo of todoservice.todos | started : status">
     <todo-item-renderer
     [todo] = "todo"
     (toggle) = "todoservice.toggleTodo($event)"
@@ -24,6 +24,8 @@ import {StartedPipe} from './started-pipe';
 })
 
 export class TodoList{
+    //Now I need to get this string from so as to pass to the application
+    @Input() status ;
     constructor(public todoservice:TodoService){
     }
 }
