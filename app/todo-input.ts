@@ -1,21 +1,25 @@
-import {Component} from "angular2/core"
+import {Component} from "@angular/core"
 import {TodoService} from './todo-service';
 import {TodoModel} from './todo-model';
+import {TodoFilter} from './filter-pipe';
 
 @Component({
     selector:'todo-input',
     template : `<div>
-    My Todos
+    Add todos
     <section>
     <form (submit)="onClick()">
     <input type="text" [(ngModel)]="todoModel.title" >
     </form>
     </section>
-    </div>`
+    {{values}}
+    </div>`,
+    directives: [TodoFilter]
 })
 
 export class TodoInput {
     todoModel : TodoModel = new TodoModel();
+    values:string = '';
     constructor(public todoservice: TodoService){
 
     }

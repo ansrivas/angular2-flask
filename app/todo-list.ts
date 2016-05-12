@@ -1,4 +1,4 @@
-import {Component, Input} from 'angular2/core';
+import {Component, Input} from '@angular/core';
 import {TodoService} from './todo-service';
 import {TodoItemRenderer} from './todo-item-renderer';
 import {SearchPipe} from './search-pipe';

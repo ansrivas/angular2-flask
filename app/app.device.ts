@@ -1,7 +1,7 @@
-import {Component, Injectable} from 'angular2/core';
-import {FORM_PROVIDERS, FormBuilder, Validators, Control, ControlGroup} from 'angular2/common';
-import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
-import { Http, HTTP_PROVIDERS, Headers  } from 'angular2/http';
+import {Component, Injectable} from '@angular/core';
+import {FORM_PROVIDERS, FormBuilder, Validators, Control, ControlGroup} from '@angular/common';
+import { CORE_DIRECTIVES, FORM_DIRECTIVES } from '@angular/common';
+import { Http, HTTP_PROVIDERS, Headers  } from '@angular/http';
 import {ControlMessages} from './control-message.component';
 import {ValidationService} from './validation.service';
 import {TodoInput} from './todo-input';

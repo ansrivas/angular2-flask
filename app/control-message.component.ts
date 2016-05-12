@@ -1,5 +1,5 @@
-import {Component, Host} from 'angular2/core';
-import {NgFormModel} from 'angular2/common';
+import {Component, Host} from '@angular/core';
+import {NgFormModel} from '@angular/common';
 import {ValidationService} from './validation.service';
 
 @Component({
