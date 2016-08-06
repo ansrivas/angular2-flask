@@ -12,7 +12,7 @@ import {StartedPipe} from './started-pipe';
     template:`
     <div>
     <ul>
-    <li *ngFor="#todo of todoservice.todos | started : status">
+    <li *ngFor="let todo of todoservice.todos | started : status">
     <todo-item-renderer
     [todo] = "todo"
     (toggle) = "todoservice.toggleTodo($event)"
