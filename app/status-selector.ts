@@ -4,7 +4,7 @@ import {Component, Output, EventEmitter}  from  '@angular/core' ;
     selector : 'status-selector',
     template : `<div>
     <select #myselect (change)="selected.emit(myselect.value)">
-    <option *ngFor= "#stats of statuses">
+    <option *ngFor= "let stats of statuses">
     {{stats}}
     </option>
     </select>
