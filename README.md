@@ -30,7 +30,7 @@ tasks
 
     ```bash
     cd backend
-    sudo pip install requirements.txt
+    sudo pip install -r requirements.txt
     python run.py
     ```
 
