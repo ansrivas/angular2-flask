@@ -53,3 +53,5 @@ tasks
     ```
 
 4.  Navigate to `http://localhost:3000`
+
+5.  Default credential : `admin:admin`
