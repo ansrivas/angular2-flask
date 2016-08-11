@@ -1,0 +1,5 @@
+flask
+gevent
+flask-cors
+flask-security
+flask-sqlalchemy
