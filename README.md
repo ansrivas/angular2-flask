@@ -55,3 +55,28 @@ tasks
 4.  Navigate to `http://localhost:3000`
 
 5.  Default credential : `admin:admin`
+
+### Docker support:
+
+1. Build the docker backend
+
+  ```bash
+  cd backend
+  docker build --no-cache  -t backend/python:latest .
+  docker run -it -p 8081:8081 --name server backend/python
+  ```
+  To connect to the running container:
+  ```bash
+  docker exec -it server /bin/sh
+  ```
+2. Build the frontend
+
+  ```bash
+  cd front
+  docker build --no-cache  -t frontend/angular2:latest .
+  docker run -it -p 3000:8080 --name angular2-app frontend/angular2
+  ```
+
+3. Navigate to `http://localhost:3000`  
+
+4. Easiest way to run this application to run `docker-compose up` in the project root directory.
