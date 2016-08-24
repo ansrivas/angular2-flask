@@ -1,4 +1,4 @@
-FROM mhart/alpine-node
+FROM mhart/alpine-node:6.4.0
 
 RUN adduser -D app \
   && mkdir -p /front
@@ -13,7 +13,7 @@ WORKDIR /front
 RUN npm install rimraf webpack typescript -g \
   && npm install \
   && npm run build:prod \
-  && chown -R app:app /front 
+  && chown -R app:app /front
 
 USER app
 
