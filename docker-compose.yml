@@ -1,0 +1,18 @@
+version: '2'
+services:
+  backend:
+    build: ./backend
+    image: backend/python
+    ports:
+      - "8081:8081"
+    container_name: server
+  frontend:
+    build: ./front
+    image: frontend/angular2
+    ports:
+      - "3000:8080"
+    container_name: angular2-app
+    links:
+      - backend
+    depends_on:
+      - backend
