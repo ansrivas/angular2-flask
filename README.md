@@ -2,13 +2,6 @@
 
 Simple angular2 app with python-flask backend (for learning angular2)
 
-tasks
-
--   Create a todo-app
--   Create python-backend
--   Connect using sqlite
--   Implement Oauth2
-
 ## Usage
 
 1.  `backend` directory contains the flask backend with simple authentication methods
