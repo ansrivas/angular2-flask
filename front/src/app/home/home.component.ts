@@ -7,7 +7,6 @@ import { NavbarComponent } from  '../navbar';
 import { WebService } from '../webservices';
 
 @Component({
-  moduleId: module.id,
   selector: 'home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],

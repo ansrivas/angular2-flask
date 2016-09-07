@@ -10,8 +10,8 @@ import {   Router } from '@angular/router';
 
 @Component({
   selector: `login`,
-  template: require('./login.component.html'),
-  styles: [require('./login.component.css')],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
   // Here we tell Angular that we want the form
   // directives to be available in this component
   providers: [AuthenticationService]

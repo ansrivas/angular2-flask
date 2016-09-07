@@ -13,7 +13,7 @@ class Email {
 @Component({
   selector: 'app-error-message',
   template: './errormessage.component.html',
-  styles: [require('./errormessage.component.css')]
+  styleUrls: ['./errormessage.component.css']
 })
 export class ErrorMessage {
 
