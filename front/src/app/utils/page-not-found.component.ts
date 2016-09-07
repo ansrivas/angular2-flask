@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { ROUTER_DIRECTIVES, Router } from '@angular/router';
-
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   template: `
   <div class="container">
@@ -22,8 +21,6 @@ import { ROUTER_DIRECTIVES, Router } from '@angular/router';
   styles: [`
    .center {text-align: center; margin-left: auto; margin-right: auto; margin-bottom: auto; margin-top: auto;}
 `]
-  ,
-  directives: [ROUTER_DIRECTIVES]
 })
 export class PageNotFoundComponent {
 

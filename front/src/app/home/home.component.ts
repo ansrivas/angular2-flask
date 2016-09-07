@@ -11,7 +11,6 @@ import { WebService } from '../webservices';
   selector: 'home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  directives: [NavbarComponent],
   providers: [WebService, AuthenticationService]
 })
 export class HomeComponent implements OnInit {

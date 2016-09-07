@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import {  NgForm } from '@angular/common';
-import { FormGroup, Validators,
-  FormControl, FormControlName,
-  REACTIVE_FORM_DIRECTIVES } from '@angular/forms';
-import { disableDeprecatedForms, provideForms } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder }
+from '@angular/forms';
 
 
 class Email {
@@ -15,9 +12,8 @@ class Email {
 
 @Component({
   selector: 'app-error-message',
-  template: require('./errormessage.component.html'),
-  styles: [require('./errormessage.component.css')],
-  directives: [REACTIVE_FORM_DIRECTIVES]
+  template: './errormessage.component.html',
+  styles: [require('./errormessage.component.css')]
 })
 export class ErrorMessage {
 

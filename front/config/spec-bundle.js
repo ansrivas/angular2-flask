@@ -21,10 +21,11 @@ require('ts-helpers');
 
 require('zone.js/dist/zone');
 require('zone.js/dist/long-stack-trace-zone');
-require('zone.js/dist/jasmine-patch');
+require('zone.js/dist/proxy'); // since zone.js 0.6.15
+require('zone.js/dist/sync-test');
+require('zone.js/dist/jasmine-patch'); // put here since zone.js 0.6.14
 require('zone.js/dist/async-test');
 require('zone.js/dist/fake-async-test');
-require('zone.js/dist/sync-test');
 
 // RxJS
 require('rxjs/Rx');
@@ -32,18 +33,18 @@ require('rxjs/Rx');
 var testing = require('@angular/core/testing');
 var browser = require('@angular/platform-browser-dynamic/testing');
 
-testing.setBaseTestProviders(
-  browser.TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS,
-  browser.TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS
+testing.TestBed.initTestEnvironment(
+  browser.BrowserDynamicTestingModule,
+  browser.platformBrowserDynamicTesting()
 );
 
 /*
- * Ok, this is kinda crazy. We can use the the context method on
+ * Ok, this is kinda crazy. We can use the context method on
  * require that webpack created in order to tell webpack
  * what files we actually want to require or import.
- * Below, context will be an function/object with file names as keys.
- * using that regex we are saying look in ./src/app and ./test then find
- * any file that ends with spec.js and get its path. By passing in true
+ * Below, context will be a function/object with file names as keys.
+ * Using that regex we are saying look in ../src then find
+ * any file that ends with spec.ts and get its path. By passing in true
  * we say do this recursively
  */
 var testContext = require.context('../src', true, /\.spec\.ts/);

@@ -1,10 +1,10 @@
 import { Component, Injectable, ViewChild, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl, REACTIVE_FORM_DIRECTIVES } from '@angular/forms';
-import { NgForm }    from '@angular/common';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
+
 import { AuthenticationService } from '../authentication/authentication.service';
 import { UserComponent } from '../utils/user';
 import {   Router } from '@angular/router';
-import { disableDeprecatedForms, provideForms } from '@angular/forms';
+
 
 
 
@@ -14,7 +14,6 @@ import { disableDeprecatedForms, provideForms } from '@angular/forms';
   styles: [require('./login.component.css')],
   // Here we tell Angular that we want the form
   // directives to be available in this component
-  directives: [REACTIVE_FORM_DIRECTIVES],
   providers: [AuthenticationService]
 })
 export class LoginFormComponent implements OnInit {

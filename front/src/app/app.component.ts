@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+
 import { LoginFormComponent } from './login/login.component';
 import { AppState } from './app.service';
 
 @Component({
   selector: 'app',
+  encapsulation: ViewEncapsulation.None,
   template: `<main>
                 <router-outlet></router-outlet>
             </main>`,
