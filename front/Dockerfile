@@ -10,8 +10,10 @@ COPY assets /front/assets/
 
 WORKDIR /front
 
-RUN npm install rimraf webpack typescript -g \
+RUN apk --update add --virtual build-dependencies git \
+  && npm install rimraf webpack typescript -g \
   && npm install \
+  && apk del build-dependencies \
   && npm run build:prod \
   && chown -R app:app /front
 
