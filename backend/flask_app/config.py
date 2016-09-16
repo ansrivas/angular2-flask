@@ -1,12 +1,15 @@
 """This module has configurations for flask app."""
 
-import os
 import logging
+import os
 from logging import handlers
+
 from flask import Flask
 from flask_cors import CORS
-from database.entities import db, User, Role
 from flask_security import Security, SQLAlchemyUserDatastore, utils
+
+from database.entities import Role, User, db
+
 app = Flask(__name__)
 
 
@@ -77,22 +80,41 @@ class TestingConfig(BaseConfig):
 
 def setup_logger():
     """Setup the logger with predefined formatting of time and rollup."""
-    generated_files = 'log_output'
-    logfile_name = '{0}/web.log'.format(generated_files)
+    generated_files = 'logs'
+    ALL_LOG_FILENAME = '{0}/all.log'.format(generated_files)
+    ERROR_LOG_FILENAME = '{0}/error.log'.format(generated_files)
     if not os.path.exists(generated_files):
         os.makedirs(generated_files)
 
-    logging.getLogger('').setLevel(logging.DEBUG)
-    handler = logging.handlers.RotatingFileHandler(logfile_name,
-                                                   maxBytes=10000000,
-                                                   backupCount=1000)
-    LOGGING_FORMAT = "[%(asctime)s] [%(name)s.%(funcName)-30s]" +\
-        "[%(levelname)-6s] %(message)s"
+    format = "[%(asctime)s] [%(name)-30s] [%(levelname)-8s] %(message)s"
     datefmt = '%Y-%m-%d %H:%M:%S'
-    handler.setFormatter(logging.Formatter(LOGGING_FORMAT, datefmt=datefmt))
-    logging.getLogger('').addHandler(handler)
 
-    print 'Logging into {}'.format(logfile_name)
+    logger = logging.getLogger()
+    logger.setLevel(logging.DEBUG)
+
+    # create console handler and set level to info
+    handler = logging.StreamHandler()
+    handler.setLevel(logging.INFO)
+    handler.setFormatter(logging.Formatter(format, datefmt=datefmt))
+    logger.addHandler(handler)
+
+    # create error file handler and set level to error
+    handler = logging.handlers.RotatingFileHandler(ERROR_LOG_FILENAME,
+                                                   maxBytes=1000000,
+                                                   backupCount=1000)
+    handler.setLevel(logging.ERROR)
+    handler.setFormatter(logging.Formatter(format, datefmt=datefmt))
+    logger.addHandler(handler)
+
+    # create debug file handler and set level to debug
+    handler = logging.handlers.RotatingFileHandler(ALL_LOG_FILENAME,
+                                                   maxBytes=1000000,
+                                                   backupCount=1000)
+    handler.setLevel(logging.DEBUG)
+    handler.setFormatter(logging.Formatter(format, datefmt=datefmt))
+    logger.addHandler(handler)
+
+    print('Logging into directory {}\n'.format(generated_files))
 
 
 def configure_app(app):

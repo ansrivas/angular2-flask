@@ -2,11 +2,15 @@
 
 import json
 import logging
-from gevent.wsgi import WSGIServer
-from flask import request, Response
+
+from flask import Response, request
 from flask_security import auth_token_required, utils
-from .config import configure_app,   app
-from .app_utils import token_login, html_codes
+from gevent.wsgi import WSGIServer
+
+from .app_utils import html_codes, token_login
+from .config import app, configure_app
+
+logger = logging.getLogger(__name__)
 
 
 @app.before_first_request
@@ -19,7 +23,7 @@ def set_up():
 @auth_token_required
 def logout():
     """Logout the currently logged in user."""
-    logging.info('Logged out user !!')
+    logger.info('Logged out user !!')
     utils.logout_user()
     return 'logged out successfully', 200
 
@@ -27,7 +31,7 @@ def logout():
 @app.route('/api/loginuser', methods=['POST'])
 def login():
     """View function for login view."""
-    logging.info('Logged in user')
+    logger.info('Logged in user')
     return token_login.login_with_token(request, app)
 
 
@@ -37,7 +41,6 @@ def get_data():
     """Get dummy data returned from the server."""
     data = {'Heroes': ['Hero1', 'Hero2', 'Hero3']}
     json_response = json.dumps(data)
-    print ("returning data")
     return Response(json_response,
                     status=html_codes.HTTP_OK_BASIC,
                     mimetype='application/json')
@@ -53,7 +56,7 @@ def main():
 
         http_server.serve_forever()
     except Exception as exc:
-        logging.error(exc.message)
+        logger.error(exc.message)
     finally:
         # get last entry and insert build appended if not completed
         # Do something here
