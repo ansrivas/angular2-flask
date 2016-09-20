@@ -1,18 +1,18 @@
 version: '2'
 services:
-  backend:
+  sample-backend:
     build: ./backend
-    image: backend/python
+    image: server:latest
     ports:
       - "8081:8081"
-    container_name: server
-  frontend:
+    container_name: python-backend
+  sample-frontend:
     build: ./front
-    image: frontend/angular2
+    image: angular2:latest
+    container_name: angular2-frontend
     ports:
       - "3000:8080"
-    container_name: angular2-app
     links:
-      - backend
+      - sample-backend
     depends_on:
-      - backend
+      - sample-backend
