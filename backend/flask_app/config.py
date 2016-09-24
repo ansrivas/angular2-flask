@@ -56,7 +56,7 @@ class DevelopmentConfig(BaseConfig):
     TESTING = False
     BASEDIR = os.path.abspath(os.path.dirname(__file__))
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASEDIR, 'app.db')
-    SECRET_KEY = u'not-so-super-secret'
+    SECRET_KEY = 'not-so-super-secret'
 
 
 class ProductionConfig(BaseConfig):
@@ -66,7 +66,7 @@ class ProductionConfig(BaseConfig):
     TESTING = False
     BASEDIR = os.path.abspath(os.path.dirname(__file__))
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASEDIR, 'app.db')
-    SECRET_KEY = u'Super-awesome-secret-stuff'
+    SECRET_KEY = 'Super-awesome-secret-stuff'
 
 
 class TestingConfig(BaseConfig):
@@ -131,7 +131,7 @@ def configure_app(app):
     """Configure the app w.r.t Flask-security, databases, loggers."""
     config_name = os.getenv('FLASK_CONFIGURATION', 'default')
     app.config.from_object(CONFIG[config_name])
-
+    print(app.config)
     setup_logger()
     db.init_app(app)
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
