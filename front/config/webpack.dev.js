@@ -156,7 +156,17 @@ module.exports = webpackMerge(commonConfig, {
       aggregateTimeout: 300,
       poll: 1000
     },
-    outputPath: helpers.root('dist')
+    outputPath: helpers.root('dist'),
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8080',
+        secure: false
+      },
+      '/oauth': {
+        target: 'http://localhost:8080',
+        secure: false
+      }
+    }
   },
 
   /*
