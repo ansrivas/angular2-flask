@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {  EndPoints } from '../utils';
 import { Http, Response } from '@angular/http';
 import { AuthenticationService } from '../authentication';
 import { Router } from '@angular/router';

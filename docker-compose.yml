@@ -3,15 +3,13 @@ services:
   sample-backend:
     build: ./backend
     image: server:latest
-    ports:
-      - "8081:8081"
     container_name: python-backend
   sample-frontend:
     build: ./front
     image: angular2:latest
     container_name: angular2-frontend
     ports:
-      - "3000:8080"
+      - "8008:80"
     links:
       - sample-backend
     depends_on:

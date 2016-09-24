@@ -49,7 +49,7 @@ def get_data():
 def main():
     """Main entry point of the app."""
     try:
-        http_server = WSGIServer(('0.0.0.0', 8081),
+        http_server = WSGIServer(('0.0.0.0', 8080),
                                  app,
                                  log=logging,
                                  error_log=logging)

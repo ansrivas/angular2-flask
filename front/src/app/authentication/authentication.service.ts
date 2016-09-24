@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import {   Router } from '@angular/router';
-import { jsonHeader, EndPoints } from '../utils';
+import { jsonHeader } from '../utils';
 
 @Injectable()
 export class AuthenticationService {
@@ -31,7 +31,7 @@ export class AuthenticationService {
    *
    */
   public login(body: string) {
-    return this.http.post(EndPoints.LOGIN, body, jsonHeader())
+    return this.http.post('/api/loginuser', body, jsonHeader())
       .map(this.extractToken)
       .catch(this.handleError);
   }
@@ -41,7 +41,7 @@ export class AuthenticationService {
    */
   public logout() {
     if (this.isAuthenticated()) {
-      this.postResource('', EndPoints.LOGOUT)
+      this.postResource('', '/api/logoutuser')
         .subscribe(data => this.handleLogout(data),
         error => {
           if (error.status === 401) {

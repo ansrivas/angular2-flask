@@ -86,7 +86,8 @@ class LogFormatter(logging.Formatter):
         line_number = "%s" % (record.lineno)
         location_line = error_location[:32] + ":" + line_number
         s = "%.19s [%-8s] [%-36s] %s" % (self.formatTime(record, self.datefmt),
-                                         record.levelname,  location_line, record.getMessage())
+                                         record.levelname,  location_line,
+                                         record.getMessage())
         return s
 
 
