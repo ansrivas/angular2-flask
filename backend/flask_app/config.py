@@ -2,16 +2,6 @@
 
 import logging
 import os
-from logging import handlers
-
-from flask import Flask
-from flask_cors import CORS
-from flask_security import Security, SQLAlchemyUserDatastore, utils
-
-from database.entities import Role, User, db
-
-app = Flask(__name__)
-
 
 CONFIG = {
     "development": "flask_app.config.DevelopmentConfig",
@@ -76,73 +66,3 @@ class TestingConfig(BaseConfig):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = 'sqlite://'
     SECRET_KEY = '792842bc-c4df-4de1-9177-d5207bd9faa6'
-
-
-class LogFormatter(logging.Formatter):
-    datefmt = '%Y-%m-%d %H:%M:%S'
-
-    def format(self, record):
-        error_location = "%s.%s" % (record.name, record.funcName)
-        line_number = "%s" % (record.lineno)
-        location_line = error_location[:32] + ":" + line_number
-        s = "%.19s [%-8s] [%-36s] %s" % (self.formatTime(record, self.datefmt),
-                                         record.levelname,  location_line,
-                                         record.getMessage())
-        return s
-
-
-def setup_logger():
-    """Set up the global logging settings."""
-    generated_files = 'logs'
-    ALL_LOG_FILENAME = '{0}/all.log'.format(generated_files)
-    ERROR_LOG_FILENAME = '{0}/error.log'.format(generated_files)
-    if not os.path.exists(generated_files):
-        os.makedirs(generated_files)
-
-    logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
-
-    # create console handler and set level to info
-    handler = logging.StreamHandler()
-    handler.setLevel(logging.INFO)
-    handler.setFormatter(LogFormatter())
-    logger.addHandler(handler)
-
-    # create error file handler and set level to error
-    handler = logging.handlers.RotatingFileHandler(ERROR_LOG_FILENAME,
-                                                   maxBytes=1000000,
-                                                   backupCount=100)
-    handler.setLevel(logging.ERROR)
-    handler.setFormatter(LogFormatter())
-    logger.addHandler(handler)
-
-    # create debug file handler and set level to debug
-    handler = logging.handlers.RotatingFileHandler(ALL_LOG_FILENAME,
-                                                   maxBytes=1000000,
-                                                   backupCount=100)
-    handler.setLevel(logging.DEBUG)
-    handler.setFormatter(LogFormatter())
-    logger.addHandler(handler)
-
-    print('Logging into directory {}\n'.format(generated_files))
-
-
-def configure_app(app):
-    """Configure the app w.r.t Flask-security, databases, loggers."""
-    config_name = os.getenv('FLASK_CONFIGURATION', 'default')
-    app.config.from_object(CONFIG[config_name])
-    print(app.config)
-    setup_logger()
-    db.init_app(app)
-    user_datastore = SQLAlchemyUserDatastore(db, User, Role)
-    security = Security(app, user_datastore)
-
-    # set up cross origin handling
-    CORS(app, headers=['Content-Type'])
-
-    db.create_all()
-    if not User.query.first():
-        user_datastore.create_user(
-            email=app.config['ADMIN_USER'],
-            password=utils.encrypt_password(app.config['ADMIN_PASSWORD']))
-        db.session.commit()

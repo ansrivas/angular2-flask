@@ -6,9 +6,9 @@ Simple angular2 app with python-flask backend (for learning angular2)
 
 1.  `backend` directory contains the flask backend with simple authentication methods
 
-2.  `frontend` directory contains the angular2 frontend as explained in [angular-webpack-starter](https://github.com/AngularClass/angular2-webpack-starter)
+2.  `front` directory contains the angular2 frontend based on [angular-webpack-starter](https://github.com/AngularClass/angular2-webpack-starter)
 
-## Installation instructions
+## Usage
 
 1.  Clone the repo
 
@@ -17,9 +17,7 @@ Simple angular2 app with python-flask backend (for learning angular2)
     cd angular2-flask
     ```
 
-2.  Install and run backend in a terminal
-
-    -   Server logs are stored in a directory named log_output
+2.  Install the backend related requirements and run. The following will start a flask-server on `localhost:8080`
 
     ```bash
     cd backend
@@ -45,31 +43,19 @@ Simple angular2 app with python-flask backend (for learning angular2)
     npm run server:dev:hmr
     ```
 
-4.  Navigate to `http://localhost:3000`
-
-5.  Default credential : `admin:admin`
+4.  Now navigate to `http://localhost:3000` and login using default credential : `admin:admin`
 
 ### Docker support:
 
-1. Build the docker backend
+The current build is using `nginx` to serve static files. The pre-requisite is to run the following commands and then use `docker-compose`
 
-  ```bash
-  cd backend
-  docker build --no-cache  -t backend/python:latest .
-  docker run -it -p 8081:8081 --name server backend/python
-  ```
-  To connect to the running container:
-  ```bash
-  docker exec -it server /bin/sh
-  ```
-2. Build the frontend
-
+1. Build the frontend ( production build )
   ```bash
   cd front
-  docker build --no-cache  -t frontend/angular2:latest .
-  docker run -it -p 3000:8080 --name angular2-app frontend/angular2
+  npm install webpack-dev-server rimraf webpack typescript -g
+  npm install
+  npm run build:prod
   ```
+4. Now, in project root directory execute `docker-compose up`
 
-3. Navigate to `http://localhost:3000`  
-
-4. Easiest way to run this application to run `docker-compose up` in the project root directory.
+3. Navigate to `http://localhost:3000` and login using `admin:admin`  

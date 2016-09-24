@@ -8,15 +8,15 @@ from flask_security import auth_token_required, utils
 from gevent.wsgi import WSGIServer
 
 from .app_utils import html_codes, token_login
-from .config import app, configure_app
+from .factory import create_app, create_user
 
 logger = logging.getLogger(__name__)
+app = create_app()
 
 
 @app.before_first_request
-def set_up():
-    """Configure the application to be used by the application."""
-    configure_app(app)
+def init():
+    create_user(app)
 
 
 @app.route("/api/logoutuser", methods=['POST'])

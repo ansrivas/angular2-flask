@@ -1,10 +1,8 @@
 """All the database related entities are in this module."""
 
 
+from flask_security import RoleMixin, SQLAlchemyUserDatastore, UserMixin
 from flask_sqlalchemy import SQLAlchemy
-from flask_security import (UserMixin,
-                            RoleMixin)
-
 
 db = SQLAlchemy()
 
@@ -67,3 +65,5 @@ class User(Base, UserMixin):
     def __repr__(self):
         """String representation of the class."""
         return '<User %r>' % self.email
+
+user_datastore = SQLAlchemyUserDatastore(db, User, Role)
