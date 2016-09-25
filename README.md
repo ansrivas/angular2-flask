@@ -2,7 +2,7 @@
 
 Simple angular2 app with python-flask backend (for learning angular2)
 
-## Usage
+## Info
 
 1.  `backend` directory contains the flask backend with simple authentication methods
 
