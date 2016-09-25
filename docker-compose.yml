@@ -9,7 +9,7 @@ services:
     image: angular2:latest
     container_name: angular2-frontend
     ports:
-      - "8008:80"
+      - "3000:80"
     links:
       - sample-backend
     depends_on:
