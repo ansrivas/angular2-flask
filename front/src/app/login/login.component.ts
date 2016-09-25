@@ -1,9 +1,10 @@
 import { Component, Injectable, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
-
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { UserComponent } from '../utils/user';
 import {   Router } from '@angular/router';
+import { Observable } from 'rxjs/Rx';
 
 
 
@@ -16,7 +17,7 @@ import {   Router } from '@angular/router';
   // directives to be available in this component
   providers: [AuthenticationService]
 })
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent {
 
   inputLogo = 'assets/img/angularclass-logo.png';
   model: UserComponent = new UserComponent(1, '', '');
@@ -34,9 +35,6 @@ export class LoginFormComponent implements OnInit {
     this.form = new FormGroup(group);
   }
 
-  ngOnInit() {
-
-  }
 
   loginUser() {
 
@@ -49,12 +47,19 @@ export class LoginFormComponent implements OnInit {
       .subscribe(data => {
         this.router.navigate(['/home']);
       },
-      error => {
-        console.log('wrong password entered');
-        this.logintext = 'Wrong password entered ! ';
-        this.color = 'red';
-
-      }
+      error => this.handleError(error)
       );
   }
+  private handleError(error: any) {
+    // In a real world app, we might use a remote logging infrastructure
+    // We'd also dig deeper into the error to get a better message
+    let errMsg = (error.message) ? error.message :
+      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    console.error(errMsg); // log to console instead
+    this.color = 'red';
+    this.logintext = errMsg;
+    return Observable.throw(errMsg);
+  }
+
+
 }
