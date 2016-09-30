@@ -50,12 +50,14 @@ Simple angular2 app with python-flask backend (for learning angular2)
 The current build is using `nginx` to serve static files. The pre-requisite is to run the following commands and then use `docker-compose`
 
 1. Build the frontend ( production build )
+
   ```bash
   cd front
   npm install webpack-dev-server rimraf webpack typescript -g
   npm install
   npm run build:prod
   ```
+  
 4. Now, in project root directory execute `docker-compose up`
 
 3. Navigate to `http://localhost:3000` and login using `admin:admin`  
