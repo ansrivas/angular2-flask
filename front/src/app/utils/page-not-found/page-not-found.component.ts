@@ -23,7 +23,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 `]
 })
 export class PageNotFoundComponent {
-
   constructor(private router: Router) { }
   redirectToLogin() {
     this.router.navigate(['/home']);

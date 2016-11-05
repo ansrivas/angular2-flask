@@ -6,17 +6,16 @@ from '@angular/forms';
 
 class Email {
   constructor(public emailAddress: string) {
-
   }
 }
 
 @Component({
   selector: 'app-error-message',
-  template: './errormessage.component.html',
+  templateUrl: './errormessage.component.html',
   styleUrls: ['./errormessage.component.css']
 })
 export class ErrorMessage {
-
+  inputLogo = 'assets/img/angularclass-logo.png';
   textmessage: string = 'Forgot your password ?';
   emailModel: Email = new Email('');
   form;
