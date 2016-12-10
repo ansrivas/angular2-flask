@@ -35,7 +35,7 @@ const METADATA = {
  *
  * See: http://webpack.github.io/docs/configuration.html#cli
  */
-module.exports = function(options) {
+module.exports = function (options) {
   isProd = options.env === 'production';
   return {
 
@@ -57,8 +57,8 @@ module.exports = function(options) {
     entry: {
 
       'polyfills': './src/polyfills.browser.ts',
-      'vendor': './src/vendor.browser.ts',
-      'main': './src/main.browser.ts'
+      'vendor':    './src/vendor.browser.ts',
+      'main':      './src/main.browser.ts'
 
     },
 
@@ -103,7 +103,7 @@ module.exports = function(options) {
             '@angularclass/hmr-loader?pretty=' + !isProd + '&prod=' + isProd,
             'awesome-typescript-loader',
             'angular2-template-loader',
-            'angular2-router-loader'
+            'angular-router-loader'
           ],
           exclude: [/\.(spec|e2e)\.ts$/]
         },
@@ -205,12 +205,10 @@ module.exports = function(options) {
        *
        * See: https://www.npmjs.com/package/copy-webpack-plugin
        */
-      new CopyWebpackPlugin([{
-        from: 'src/assets',
-        to: 'assets'
-      }, {
-        from: 'src/meta'
-      }]),
+      new CopyWebpackPlugin([
+        { from: 'src/assets', to: 'assets' },
+        { from: 'src/meta'}
+      ]),
 
 
       /*
