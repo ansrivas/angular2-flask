@@ -3,4 +3,4 @@ gevent==1.1.2
 Flask-Cors==2.1.2
 Flask-Security==1.7.5
 Flask-SQLAlchemy==2.1
-git+ssh://git@github.com/ansrivas/pylogging#egg=pylogging
+git+https://github.com/ansrivas/pylogging.git

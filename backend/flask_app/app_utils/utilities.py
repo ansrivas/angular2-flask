@@ -76,5 +76,3 @@ def setup_logger():
     handler.setLevel(logging.DEBUG)
     handler.setFormatter(LogFormatter())
     logger.addHandler(handler)
-
-    print('Logging into directory {}\n'.format(generated_files))

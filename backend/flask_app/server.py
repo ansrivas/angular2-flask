@@ -2,6 +2,7 @@
 
 import json
 import logging
+import traceback
 
 from flask import Response, request
 from flask_security import auth_token_required, utils
@@ -16,6 +17,7 @@ app = create_app()
 
 @app.before_first_request
 def init():
+    """Initialize the application with defaults."""
     create_user(app)
 
 
@@ -57,6 +59,7 @@ def main():
         http_server.serve_forever()
     except Exception as exc:
         logger.error(exc.message)
+        logger.exception(traceback.format_exc())
     finally:
         # get last entry and insert build appended if not completed
         # Do something here
