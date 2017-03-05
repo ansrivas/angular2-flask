@@ -4,19 +4,15 @@
       <h1 class="text-center login-title" [ngStyle]="{'color': color}">{{logintext}}</h1>
       <div class="account-wall">
         <img class="profile-img" [src]="inputLogo" alt="">
-
-        <form #registrationForm="ngForm" (ngSubmit)="loginUser()" [formGroup]="form" class="form-signin">
-
+        <form #registrationForm="ngForm" (ngSubmit)="loginUser()" [formGroup]="myForm" class="form-signin">
           <div class="form-group">
             <input id="username" type="text" required autofocus placeholder="Username" class="form-control" formControlName="username">
-            <div class="errorMessage" *ngIf="registrationForm.form.controls.username.touched && !registrationForm.form.controls.username.valid">Username is required</div>
+            <div class="errorMessage" *ngIf="myForm.controls['username'].touched && !myForm.controls['username'].valid">Username is required</div>
           </div>
-
           <div class="form-group">
             <input id="password" type="password" required class="form-control" placeholder="Password" formControlName="password">
-            <div class="errorMessage" *ngIf="registrationForm.form.controls.password.touched && !registrationForm.form.controls.password.valid">password is required</div>
+            <div class="errorMessage" *ngIf="myForm.controls['password'].touched && !myForm.controls['password'].valid">password is required</div>
           </div>
-
           <div class="form-group">
             <button type="submit" class="btn btn-lg btn-primary btn-block" [disabled]="!registrationForm.valid">Sign in</button>
           </div>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
-import {   Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { jsonHeader } from '../utils';
 
 @Injectable()
@@ -9,12 +9,7 @@ export class AuthenticationService {
 
   private loginSuccessful: boolean = true;
 
-
-  constructor(private http: Http,
-    private router: Router) {
-
-  }
-
+  constructor(private http: Http, private router: Router) { }
 
   public isAuthenticated() {
     return !this.checkTokenExpired();
@@ -24,7 +19,6 @@ export class AuthenticationService {
     localStorage.clear();
     this.router.navigate(['/sessionexpired']);
   }
-
 
   /**
    * Sends a login request
@@ -42,8 +36,8 @@ export class AuthenticationService {
   public logout() {
     if (this.isAuthenticated()) {
       this.postResource('', '/api/logoutuser')
-        .subscribe(data => this.handleLogout(data),
-        error => {
+        .subscribe((data) => this.handleLogout(data),
+        (error) => {
           if (error.status === 401) {
             this.router.navigate(['/sessionexpired']);
           }
@@ -68,7 +62,6 @@ export class AuthenticationService {
     let options = new RequestOptions({ headers: headers });
     return this.http.post(url, body, options);
   }
-
 
   /**
    * Get resource to fetch data from server using an end point as `url`

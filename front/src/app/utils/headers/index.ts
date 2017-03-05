@@ -1,1 +1,1 @@
-export * from  './xhr-headers'; 
+export * from './xhrheaders';

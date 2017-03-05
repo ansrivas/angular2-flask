@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 export class SessionExpiredComponent {
   constructor(private router: Router) { }
 
-  redirectToLogin() {
+  public redirectToLogin() {
     this.router.navigate(['/login']);
   }
 }

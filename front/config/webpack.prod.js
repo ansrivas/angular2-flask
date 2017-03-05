@@ -9,15 +9,15 @@ const commonConfig = require('./webpack.common.js'); // the settings that are co
 /**
  * Webpack Plugins
  */
-const DedupePlugin = require('webpack/lib/optimize/DedupePlugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const IgnorePlugin = require('webpack/lib/IgnorePlugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplacementPlugin');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
-const WebpackMd5Hash = require('webpack-md5-hash');
-const V8LazyParseWebpackPlugin = require('v8-lazy-parse-webpack-plugin');
+const OptimizeJsPlugin = require('optimize-js-plugin');
+
 /**
  * Webpack Constants
  */
@@ -33,7 +33,7 @@ const METADATA = webpackMerge(commonConfig({
   HMR: false
 });
 
-module.exports = function(env) {
+module.exports = function (env) {
   return webpackMerge(commonConfig({
     env: ENV
   }), {
@@ -86,6 +86,38 @@ module.exports = function(env) {
 
     },
 
+    module: {
+
+      rules: [
+
+        /*
+         * Extract CSS files from .src/styles directory to external CSS file
+         */
+        {
+          test: /\.css$/,
+          loader: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: 'css-loader'
+          }),
+          include: [helpers.root('src', 'styles')]
+        },
+
+        /*
+         * Extract and compile SCSS files from .src/styles directory to external CSS file
+         */
+        {
+          test: /\.scss$/,
+          loader: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: 'css-loader!sass-loader'
+          }),
+          include: [helpers.root('src', 'styles')]
+        },
+
+      ]
+
+    },
+
     /**
      * Add additional plugins to the compiler.
      *
@@ -94,22 +126,23 @@ module.exports = function(env) {
     plugins: [
 
       /**
-       * Plugin: WebpackMd5Hash
-       * Description: Plugin to replace a standard webpack chunkhash with md5.
+       * Webpack plugin to optimize a JavaScript file for faster initial load
+       * by wrapping eagerly-invoked functions.
        *
-       * See: https://www.npmjs.com/package/webpack-md5-hash
+       * See: https://github.com/vigneshshanmugam/optimize-js-plugin
        */
-      new WebpackMd5Hash(),
+
+      new OptimizeJsPlugin({
+        sourceMap: false
+      }),
 
       /**
-       * Plugin: DedupePlugin
-       * Description: Prevents the inclusion of duplicate code into your bundle
-       * and instead applies a copy of the function at runtime.
+       * Plugin: ExtractTextPlugin
+       * Description: Extracts imported CSS files into external stylesheet
        *
-       * See: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
-       * See: https://github.com/webpack/docs/wiki/optimization#deduplication
+       * See: https://github.com/webpack/extract-text-webpack-plugin
        */
-      // new DedupePlugin(), // see: https://github.com/angular/angular-cli/issues/1587
+      new ExtractTextPlugin('[name].[contenthash].css'),
 
       /**
        * Plugin: DefinePlugin
@@ -268,6 +301,16 @@ module.exports = function(env) {
 
         }
       }),
+
+      /**
+       * Plugin: BundleAnalyzerPlugin
+       * Description: Webpack plugin and CLI utility that represents
+       * bundle content as convenient interactive zoomable treemap
+       *
+       * `npm run build:prod -- --env.analyze` to use
+       *
+       * See: https://github.com/th0r/webpack-bundle-analyzer
+       */
 
     ],
 

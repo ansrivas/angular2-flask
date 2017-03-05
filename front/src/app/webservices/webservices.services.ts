@@ -3,12 +3,9 @@ import { AuthenticationService } from '../authentication';
 import { Router } from '@angular/router';
 import { Http, Response } from '@angular/http';
 
-
 @Injectable()
-export class WebService implements OnInit {
+export class WebService {
   constructor(private authService: AuthenticationService) { }
-
-  ngOnInit() { }
 
   public getDataFromBackend() {
     return this.authService.postResource('', '/api/getdata');

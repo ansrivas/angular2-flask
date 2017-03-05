@@ -1,3 +1,4 @@
+
 function HtmlElementsPlugin(locations) {
   this.locations = locations;
 }
@@ -47,9 +48,7 @@ function createTag(tagName, attrMap, publicPath) {
   }
 
   const attributes = Object.getOwnPropertyNames(attrMap)
-    .filter(function(name) {
-      return name[0] !== '=';
-    })
+    .filter(function(name) { return name[0] !== '='; } )
     .map(function(name) {
       var value = attrMap[name];
 
@@ -96,11 +95,9 @@ function getHtmlElementString(dataSource, publicPath) {
   return Object.getOwnPropertyNames(dataSource)
     .map(function(name) {
       if (Array.isArray(dataSource[name])) {
-        return dataSource[name].map(function(attrs) {
-          return createTag(name, attrs, publicPath);
-        });
+        return dataSource[name].map(function(attrs) { return createTag(name, attrs, publicPath); } );
       } else {
-        return [createTag(name, dataSource[name], publicPath)];
+        return [ createTag(name, dataSource[name], publicPath) ];
       }
     })
     .reduce(function(arr, curr) {

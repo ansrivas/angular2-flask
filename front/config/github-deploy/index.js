@@ -3,7 +3,7 @@ const webpackMerge = require('webpack-merge'); // used to merge webpack configs
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const helpers = require('../helpers');
 
-const REPO_NAME_RE = /Push {2}URL: https:\/\/github\.com\/.*\/(.*)\.git/;
+const REPO_NAME_RE = /Push {2}URL: ((git@github\.com:)|(https:\/\/github\.com\/)).+\/(.+)\.git/;
 
 function getWebpackConfigModule(options) {
   if (options.githubDev) {
@@ -19,12 +19,12 @@ function getRepoName(remoteName) {
   remoteName = remoteName || 'origin';
 
   var stdout = execSync('git remote show ' + remoteName),
-    match = REPO_NAME_RE.exec(stdout);
+      match = REPO_NAME_RE.exec(stdout);
 
   if (!match) {
     throw new Error('Could not find a repository on remote ' + remoteName);
   } else {
-    return match[1];
+    return match[4];
   }
 }
 
@@ -57,7 +57,7 @@ function safeUrl(url) {
 }
 
 function replaceHtmlWebpackPlugin(plugins, ghRepoName) {
-  for (var i = 0; i < plugins.length; i++) {
+  for (var i=0; i<plugins.length; i++) {
     if (plugins[i] instanceof HtmlWebpackPlugin) {
       // remove the old instance of the html plugin
       const htmlPlug = plugins.splice(i, 1)[0];

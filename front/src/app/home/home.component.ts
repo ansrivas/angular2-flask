@@ -13,17 +13,16 @@ import { WebService } from '../webservices';
 })
 export class HomeComponent implements OnInit {
 
-  heroes = [];
-  constructor(private http: Http, private router: Router,
-    private webservice: WebService) {
-  }
+  public heroes = [];
+  constructor(private http: Http, private router: Router, private webservice: WebService) { }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.webservice.isAuthenticated();
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     // Will clear when component is destroyed e.g. route is navigated away from.
+    console.log('destroyed');
   }
 
   public clear() {
@@ -36,8 +35,8 @@ export class HomeComponent implements OnInit {
   public getData() {
     this.webservice.getDataFromBackend()
       .subscribe(
-      data => this.handleData(data),
-      err => this.logError(err),
+      (data) => this.handleData(data),
+      (err) => this.logError(err),
       () => console.log('got data')
       );
   }
@@ -48,7 +47,6 @@ export class HomeComponent implements OnInit {
     }
     console.log(data.json());
   }
-
 
   private logError(err: Response) {
     console.log('There was an error: ' + err.status);

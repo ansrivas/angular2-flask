@@ -6,9 +6,6 @@ import { UserComponent } from '../utils/user';
 import {   Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 
-
-
-
 @Component({
   selector: `login`,
   templateUrl: './login.component.html',
@@ -19,35 +16,32 @@ import { Observable } from 'rxjs/Rx';
 })
 export class LoginFormComponent {
 
-  inputLogo = 'assets/img/angularclass-logo.png';
-  model: UserComponent = new UserComponent(1, '', '');
-  logintext: string = 'Sign in to continue to the portal';
-  color: string = 'black';
-  form: FormGroup;
-  private forgotPassword: boolean = false;
-
+  public inputLogo = 'assets/img/angularclass-logo.png';
+  public model: UserComponent = new UserComponent(1, '', '');
+  public logintext: string = 'Sign in to continue to the portal';
+  public color: string = 'black';
+  public myForm: FormGroup;
+  public forgotPassword: boolean = false;
 
   constructor(private _service: AuthenticationService, private router: Router) {
     let group: any = {};
     group.username = new FormControl('', Validators.required);
     group.password = new FormControl('', Validators.required);
     group.type = new FormControl('login');
-    this.form = new FormGroup(group);
+    this.myForm = new FormGroup(group);
   }
 
-
-  loginUser() {
+  public loginUser() {
 
     let body = JSON.stringify({
-      'email': this.form.value['username'],
-      'password': this.form.value['password']
+      email: this.myForm.controls['username'].value,
+      password: this.myForm.controls['password'].value
     });
-
     this._service.login(body)
-      .subscribe(data => {
+      .subscribe((data) => {
         this.router.navigate(['/home']);
       },
-      error => this.handleError(error)
+      (error) => this.handleError(error)
       );
   }
   private handleError(error: any) {
@@ -60,6 +54,4 @@ export class LoginFormComponent {
     this.logintext = errMsg;
     return Observable.throw(errMsg);
   }
-
-
 }
