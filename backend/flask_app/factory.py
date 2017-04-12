@@ -9,7 +9,6 @@ from flask import Flask
 from flask_cors import CORS
 from flask_security import Security, utils
 
-from .app_utils import utilities
 from .config import CONFIG
 from .models import User, db, user_datastore
 
@@ -20,7 +19,6 @@ def create_app():
     config_name = os.getenv('FLASK_CONFIGURATION', 'default')
     app.config.from_object(CONFIG[config_name])
     # app.secret_key = app.config['SECRET_KEY']
-    utilities.setup_logger()
     db.init_app(app)
     Security(app, user_datastore)
     CORS(app, headers=['Content-Type'])
@@ -29,6 +27,7 @@ def create_app():
 
 
 def create_user(app):
+    """Create first user if doesn't exist."""
     db.create_all()
     if not User.query.first():
         user_datastore.create_user(

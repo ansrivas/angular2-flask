@@ -61,6 +61,5 @@ def main():
         logger.error(exc.message)
         logger.exception(traceback.format_exc())
     finally:
-        # get last entry and insert build appended if not completed
         # Do something here
         pass
