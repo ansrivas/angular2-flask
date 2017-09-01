@@ -66,4 +66,5 @@ class User(Base, UserMixin):
         """String representation of the class."""
         return '<User %r>' % self.email
 
+
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)

@@ -51,11 +51,13 @@ def get_data():
 def main():
     """Main entry point of the app."""
     try:
-        http_server = WSGIServer(('0.0.0.0', 8080),
+        port = 8080
+        ip = '0.0.0.0'
+        http_server = WSGIServer((ip, port),
                                  app,
                                  log=logging,
                                  error_log=logging)
-
+        print("Server started at: {0}:{1}".format(ip, port))
         http_server.serve_forever()
     except Exception as exc:
         logger.error(exc.message)
