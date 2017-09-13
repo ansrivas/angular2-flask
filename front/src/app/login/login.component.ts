@@ -14,7 +14,7 @@ import { Observable } from 'rxjs/Rx';
   // directives to be available in this component
   providers: [AuthenticationService]
 })
-export class LoginFormComponent {
+export class LoginFormComponent implements OnInit {
 
   public inputLogo = 'assets/img/angularclass-logo.png';
   public model: UserComponent = new UserComponent(1, '', '');
@@ -31,6 +31,14 @@ export class LoginFormComponent {
     this.myForm = new FormGroup(group);
   }
 
+  public ngOnInit() {
+    console.log('Inside the login page');
+
+    if (this._service.isAuthenticated()) {
+      console.log('We are authenticated, why go to login page again');
+      this.router.navigate(['/home']);
+    }
+  }
 
   public loginUser() {
 

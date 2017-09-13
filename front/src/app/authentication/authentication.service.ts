@@ -57,9 +57,9 @@ export class AuthenticationService {
    */
   public postResource(body: String, url: string) {
     let token = localStorage.getItem('token');
-    let headers = new Headers({ 'Authorization': 'Bearer ' + token });
-    headers.append('Content-Type', 'application/json');
-    let options = new RequestOptions({ headers: headers });
+    let postHeader = new Headers({ Authorization: 'Bearer ' + token });
+    postHeader.append('Content-Type', 'application/json');
+    let options = new RequestOptions({ headers: postHeader });
     return this.http.post(url, body, options);
   }
 
@@ -68,8 +68,8 @@ export class AuthenticationService {
    */
   public getResource(url: string) {
     let token = localStorage.getItem('token');
-    let headers = new Headers({ 'Authentication-Token': token });
-    let options = new RequestOptions({ headers: headers });
+    let getHeader = new Headers({ Authorization: 'Bearer ' + token });
+    let options = new RequestOptions({ headers: getHeader });
     return this.http.get(url, options);
   }
 
@@ -92,11 +92,10 @@ export class AuthenticationService {
    * based on the first time authentication from server
    */
   private checkTokenExpired() {
-
     let expiryTime = Number(localStorage.getItem('exp'));
     let curTime = Math.floor(new Date().getTime() / 1000);
     if (curTime > expiryTime) {
-      console.log("Session expired.")
+      console.log('Session expired.');
       return true;
     }
     return false;

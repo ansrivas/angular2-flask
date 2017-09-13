@@ -19,7 +19,8 @@ import { ActivatedRoute, Router } from '@angular/router';
     </div>
   </div>
     `,
-  styles: [`.center {text-align: center; margin-left: auto; margin-right: auto; margin-bottom: auto; margin-top: auto;}`]
+  styles: [`.center {text-align: center; margin-left: auto; \
+     margin-right: auto; margin-bottom: auto; margin-top: auto;}`]
 })
 export class NotFoundComponent {
   constructor(private router: Router) { }

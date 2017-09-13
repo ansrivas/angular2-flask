@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { AuthenticationService } from '../authentication';
 import { Router } from '@angular/router';
-import { NavbarComponent } from  '../navbar';
+import { NavbarComponent } from '../navbar';
 import { WebService } from '../webservices';
 
 @Component({
@@ -11,7 +11,7 @@ import { WebService } from '../webservices';
   styleUrls: ['./home.component.css'],
   providers: [WebService, AuthenticationService]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   public heroes = [];
   constructor(private http: Http, private router: Router, private webservice: WebService) { }
