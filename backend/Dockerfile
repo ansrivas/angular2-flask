@@ -5,9 +5,7 @@ COPY requirements.txt run.py /server/
 RUN apk --no-cache add \
     python \
     py-pip \
-    libffi-dev \
-    openssl-dev \
-  && apk --update add --virtual build-dependencies gcc python-dev build-base git \
+  && apk --update add --virtual build-dependencies gcc python-dev libffi-dev openssl-dev build-base git \
   && pip install -r /server/requirements.txt \
   && apk del build-dependencies \
   && adduser -D app \
