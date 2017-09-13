@@ -2,7 +2,7 @@
 
 import logging
 import os
-
+from datetime import timedelta
 CONFIG = {
     "development": "flask_app.config.DevelopmentConfig",
     "testing": "flask_app.config.TestingConfig",
@@ -34,9 +34,10 @@ class BaseConfig(object):
     COMPRESS_LEVEL = 6
     COMPRESS_MIN_SIZE = 500
 
-    # Change it based on your admin user
+    # Change it based on your admin user, should ideally read from DB.
     ADMIN_USER = 'admin'
     ADMIN_PASSWORD = 'admin'
+    JWT_EXPIRES = timedelta(minutes=10)
 
 
 class DevelopmentConfig(BaseConfig):
@@ -47,6 +48,7 @@ class DevelopmentConfig(BaseConfig):
     BASEDIR = os.path.abspath(os.path.dirname(__file__))
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASEDIR, 'app.db')
     SECRET_KEY = 'not-so-super-secret'
+    JWT_SECRET_KEY = 'another_super_awesome_secret_stuff_yo.'
 
 
 class ProductionConfig(BaseConfig):
@@ -57,6 +59,7 @@ class ProductionConfig(BaseConfig):
     BASEDIR = os.path.abspath(os.path.dirname(__file__))
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASEDIR, 'app.db')
     SECRET_KEY = 'Super-awesome-secret-stuff'
+    JWT_SECRET_KEY = 'another_super_awesome_secret_stuff_yo.'
 
 
 class TestingConfig(BaseConfig):
@@ -66,3 +69,4 @@ class TestingConfig(BaseConfig):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = 'sqlite://'
     SECRET_KEY = '792842bc-c4df-4de1-9177-d5207bd9faa6'
+    JWT_SECRET_KEY = 'another_super_awesome_secret_stuff_yo.'
