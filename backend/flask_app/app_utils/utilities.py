@@ -1,10 +1,5 @@
 """Module which imports all the basic utility functions."""
 from __future__ import absolute_import
-
-import logging
-import os
-from logging import handlers
-
 from . import html_codes
 
 
