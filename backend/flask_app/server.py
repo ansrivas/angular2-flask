@@ -58,7 +58,6 @@ def logout():
 def login():
     """View function for login view."""
     logger.info('Logged in user')
-    logger.info(request.get_json())
 
     params = request.get_json()
     username = params.get('username', None)
