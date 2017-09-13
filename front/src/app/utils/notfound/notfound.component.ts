@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
             <p>The page you requested could not be found, either contact your webmaster</p>
             <p> Use your browsers <b>Back</b> button to go back</p>
             <p><b>Or you could just press this neat little button:</b></p>
-            <a (click)="redirectToLogin()" class="btn btn-large btn-info"> Take Me Home</a>
+            <a (click)="redirectToLogin()" class="btn btn-large btn-info"> Take me to login page</a>
           </div>
           <br />
           <!-- By ConnerT HTML & CSS Enthusiast -->
@@ -24,6 +24,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class NotFoundComponent {
   constructor(private router: Router) { }
   public redirectToLogin() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/login']);
   }
 }

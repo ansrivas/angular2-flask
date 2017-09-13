@@ -8,7 +8,7 @@ export class WebService {
   constructor(private authService: AuthenticationService) { }
 
   public getDataFromBackend() {
-    return this.authService.postResource('', '/api/getdata');
+    return this.authService.postResource('', '/api/protected');
   }
 
   public isAuthenticated() {
