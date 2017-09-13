@@ -26,6 +26,7 @@ def init():
 
 @jwt.jwt_data_loader
 def add_claims_to_access_token(identity):
+    """Explicitly set identity and claims for jwt."""
     if identity == 'admin':
         roles = 'admin'
     else:
