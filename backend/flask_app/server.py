@@ -75,6 +75,7 @@ def login():
         return jsonify({"msg": "Bad username or password"}), Status.HTTP_BAD_UNAUTHORIZED
 
     # Identity can be any data that is json serializable
+    # TODO: rather than passing expiry time here explicitly, decode token on client side. But I'm lazy.
     ret = {'jwt': create_jwt(identity=username), 'exp': datetime.utcnow() + current_app.config['JWT_EXPIRES']}
     return jsonify(ret), 200
 
