@@ -3,16 +3,19 @@
 import json
 import logging
 import traceback
-
-from flask import Response, request
-from flask_security import auth_token_required, utils
+from datetime import datetime
+from flask import Response, request, jsonify, current_app
 from gevent.wsgi import WSGIServer
+from flask_jwt_simple import (
+    JWTManager, jwt_required, create_jwt, get_jwt_identity, get_jwt
+)
 
-from .app_utils import html_codes, token_login
+from .app_utils import html_codes
 from .factory import create_app, create_user
 
 logger = logging.getLogger(__name__)
 app = create_app()
+jwt = JWTManager(app)
 
 
 @app.before_first_request
@@ -21,26 +24,71 @@ def init():
     create_user(app)
 
 
-@app.route("/api/logoutuser", methods=['POST'])
-@auth_token_required
+@jwt.jwt_data_loader
+def add_claims_to_access_token(identity):
+    if identity == 'admin':
+        roles = 'admin'
+    else:
+        roles = 'peasant'
+
+    now = datetime.utcnow()
+    return {
+        'exp': now + current_app.config['JWT_EXPIRES'],
+        'iat': now,
+        'nbf': now,
+        'sub': identity,
+        'roles': roles
+    }
+
+
+@app.route("/api/logout", methods=['POST'])
+@jwt_required
 def logout():
     """Logout the currently logged in user."""
+    # TODO: handle this logout properly, very weird implementation.
+    identity = get_jwt_identity()
+    if not identity:
+        return jsonify({"msg": "Token invalid"}), 401
     logger.info('Logged out user !!')
-    utils.logout_user()
     return 'logged out successfully', 200
 
 
-@app.route('/api/loginuser', methods=['POST'])
+@app.route('/api/login', methods=['POST'])
 def login():
     """View function for login view."""
     logger.info('Logged in user')
-    return token_login.login_with_token(request, app)
+    logger.info(request.get_json())
+
+    params = request.get_json()
+    username = params.get('username', None)
+    password = params.get('password', None)
+
+    if not username:
+        return jsonify({"msg": "Missing username parameter"}), 400
+    if not password:
+        return jsonify({"msg": "Missing password parameter"}), 400
+
+    # TODO Check from DB here
+    if username != 'admin' or password != 'admin':
+        return jsonify({"msg": "Bad username or password"}), 401
+
+    # Identity can be any data that is json serializable
+    ret = {'jwt': create_jwt(identity=username), 'exp': datetime.utcnow() + current_app.config['JWT_EXPIRES']}
+    return jsonify(ret), 200
 
 
-@app.route('/api/getdata', methods=['POST'])
-@auth_token_required
+@app.route('/api/protected', methods=['POST'])
+@jwt_required
 def get_data():
     """Get dummy data returned from the server."""
+    jwt_data = get_jwt()
+    if jwt_data['roles'] != 'admin':
+        return jsonify(msg="Permission denied"), 403
+
+    identity = get_jwt_identity()
+    if not identity:
+        return jsonify({"msg": "Token invalid"}), 401
+
     data = {'Heroes': ['Hero1', 'Hero2', 'Hero3']}
     json_response = json.dumps(data)
     return Response(json_response,

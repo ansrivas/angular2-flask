@@ -4,3 +4,4 @@ Flask-Cors==3.0.3
 Flask-Security==1.7.5
 Flask-SQLAlchemy==2.2
 git+https://github.com/ansrivas/pylogging.git
+flask-jwt-simple[asymmetric_crypto]
