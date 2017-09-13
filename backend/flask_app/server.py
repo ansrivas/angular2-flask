@@ -1,3 +1,5 @@
+# !/usr/bin/env python
+# -*- coding: utf-8 -*-
 """Entry point for the server application."""
 
 import json
@@ -10,7 +12,7 @@ from flask_jwt_simple import (
     JWTManager, jwt_required, create_jwt, get_jwt_identity, get_jwt
 )
 
-from .app_utils import html_codes
+from .http_codes import Status
 from .factory import create_app, create_user
 
 logger = logging.getLogger(__name__)
@@ -49,9 +51,9 @@ def logout():
     # TODO: handle this logout properly, very weird implementation.
     identity = get_jwt_identity()
     if not identity:
-        return jsonify({"msg": "Token invalid"}), 401
+        return jsonify({"msg": "Token invalid"}), Status.HTTP_BAD_UNAUTHORIZED
     logger.info('Logged out user !!')
-    return 'logged out successfully', 200
+    return 'logged out successfully', Status.HTTP_OK_BASIC
 
 
 @app.route('/api/login', methods=['POST'])
@@ -64,13 +66,13 @@ def login():
     password = params.get('password', None)
 
     if not username:
-        return jsonify({"msg": "Missing username parameter"}), 400
+        return jsonify({"msg": "Missing username parameter"}), Status.HTTP_BAD_REQUEST
     if not password:
-        return jsonify({"msg": "Missing password parameter"}), 400
+        return jsonify({"msg": "Missing password parameter"}), Status.HTTP_BAD_REQUEST
 
     # TODO Check from DB here
     if username != 'admin' or password != 'admin':
-        return jsonify({"msg": "Bad username or password"}), 401
+        return jsonify({"msg": "Bad username or password"}), Status.HTTP_BAD_UNAUTHORIZED
 
     # Identity can be any data that is json serializable
     ret = {'jwt': create_jwt(identity=username), 'exp': datetime.utcnow() + current_app.config['JWT_EXPIRES']}
@@ -83,16 +85,16 @@ def get_data():
     """Get dummy data returned from the server."""
     jwt_data = get_jwt()
     if jwt_data['roles'] != 'admin':
-        return jsonify(msg="Permission denied"), 403
+        return jsonify(msg="Permission denied"), Status.HTTP_BAD_FORBIDDEN
 
     identity = get_jwt_identity()
     if not identity:
-        return jsonify({"msg": "Token invalid"}), 401
+        return jsonify({"msg": "Token invalid"}), Status.HTTP_BAD_UNAUTHORIZED
 
     data = {'Heroes': ['Hero1', 'Hero2', 'Hero3']}
     json_response = json.dumps(data)
     return Response(json_response,
-                    status=html_codes.HTTP_OK_BASIC,
+                    status=Status.HTTP_OK_BASIC,
                     mimetype='application/json')
 
 

@@ -1,6 +1,6 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Docstring for module."""
+"""Create app and create a default first user."""
 
 
 import os
@@ -18,7 +18,6 @@ def create_app():
     app = Flask(__name__)
     config_name = os.getenv('FLASK_CONFIGURATION', 'default')
     app.config.from_object(CONFIG[config_name])
-    # app.secret_key = app.config['SECRET_KEY']
     db.init_app(app)
     Security(app, user_datastore)
     CORS(app, headers=['Content-Type'])

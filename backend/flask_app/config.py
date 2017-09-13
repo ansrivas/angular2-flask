@@ -1,3 +1,5 @@
+# !/usr/bin/env python
+# -*- coding: utf-8 -*-
 """This module has configurations for flask app."""
 
 import logging
