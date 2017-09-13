@@ -79,7 +79,7 @@ def login():
     return jsonify(ret), 200
 
 
-@app.route('/api/protected', methods=['POST'])
+@app.route('/api/protected', methods=['GET'])
 @jwt_required
 def get_data():
     """Get dummy data returned from the server."""
