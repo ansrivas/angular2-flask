@@ -1,13 +1,10 @@
 # angular2-flask
 ---
 
-`Backend`
-[![Docker Build Statu](https://img.shields.io/docker/build/ansrivas/flask-backend.svg)]() [![DockerPulls](https://img.shields.io/docker/pulls/ansrivas/flask-backend.svg)](https://registry.hub.docker.com/u/ansrivas/flask-backend/)
-
-`Frontend`
-[![Docker Build Statu](https://img.shields.io/docker/build/ansrivas/angular2-frontend.svg)]()
-[![DockerPulls](https://img.shields.io/docker/pulls/ansrivas/angular2-frontend.svg)](https://registry.hub.docker.com/u/ansrivas/angular2-frontend/)
-
+| `Backend`        | `Frontend`           |
+| :-------------: |:-------------:|
+|[![DockerPulls](https://img.shields.io/docker/pulls/ansrivas/flask-backend.svg)](https://registry.hub.docker.com/u/ansrivas/flask-backend/)    | [![DockerPulls](https://img.shields.io/docker/pulls/ansrivas/angular2-frontend.svg)](https://registry.hub.docker.com/u/ansrivas/angular2-frontend/)      |
+| [![Docker Build Statu](https://img.shields.io/docker/build/ansrivas/flask-backend.svg)]()     | [![Docker Build Statu](https://img.shields.io/docker/build/ansrivas/angular2-frontend.svg)]()|  
 
 Simple angular2 app with python-flask backend (for learning angular2)
 
