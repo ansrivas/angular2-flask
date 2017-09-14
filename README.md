@@ -1,9 +1,11 @@
 # angular2-flask
 ---
 
-`Backend` [![DockerPulls](https://img.shields.io/docker/pulls/ansrivas/flask-backend.svg)](https://registry.hub.docker.com/u/ansrivas/flask-backend/)
+`Backend`
+[![Docker Build Statu](https://img.shields.io/docker/build/ansrivas/flask-backend.svg)]() [![DockerPulls](https://img.shields.io/docker/pulls/ansrivas/flask-backend.svg)](https://registry.hub.docker.com/u/ansrivas/flask-backend/)
 
 `Frontend`
+[![Docker Build Statu](https://img.shields.io/docker/build/ansrivas/angular2-frontend.svg)]()
 [![DockerPulls](https://img.shields.io/docker/pulls/ansrivas/angular2-frontend.svg)](https://registry.hub.docker.com/u/ansrivas/angular2-frontend/)
 
 
