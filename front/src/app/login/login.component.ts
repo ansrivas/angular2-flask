@@ -3,7 +3,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { UserComponent } from '../utils/user';
-import {   Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 
 @Component({
@@ -14,7 +14,7 @@ import { Observable } from 'rxjs/Rx';
   // directives to be available in this component
   providers: [AuthenticationService]
 })
-export class LoginFormComponent {
+export class LoginFormComponent implements OnInit {
 
   public inputLogo = 'assets/img/angularclass-logo.png';
   public model: UserComponent = new UserComponent(1, '', '');
@@ -31,12 +31,21 @@ export class LoginFormComponent {
     this.myForm = new FormGroup(group);
   }
 
+  public ngOnInit() {
+    console.log('Inside the login page');
+
+    if (this._service.isAuthenticated()) {
+      console.log('We are authenticated, why go to login page again');
+      this.router.navigate(['/home']);
+    }
+  }
+
   public loginUser() {
 
-    let body = JSON.stringify({
-      email: this.myForm.controls['username'].value,
+    let body = {
+      username: this.myForm.controls['username'].value,
       password: this.myForm.controls['password'].value
-    });
+    };
     this._service.login(body)
       .subscribe((data) => {
         this.router.navigate(['/home']);

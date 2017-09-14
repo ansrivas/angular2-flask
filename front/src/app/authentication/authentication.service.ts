@@ -24,8 +24,8 @@ export class AuthenticationService {
    * Sends a login request
    *
    */
-  public login(body: string) {
-    return this.http.post('/api/loginuser', body, jsonHeader())
+  public login(body: object) {
+    return this.http.post('/api/login', body, jsonHeader())
       .map(this.extractToken)
       .catch(this.handleError);
   }
@@ -35,7 +35,7 @@ export class AuthenticationService {
    */
   public logout() {
     if (this.isAuthenticated()) {
-      this.postResource('', '/api/logoutuser')
+      this.postResource('', '/api/logout')
         .subscribe((data) => this.handleLogout(data),
         (error) => {
           if (error.status === 401) {
@@ -57,9 +57,9 @@ export class AuthenticationService {
    */
   public postResource(body: String, url: string) {
     let token = localStorage.getItem('token');
-    let headers = new Headers({ 'Authentication-Token': token });
-    headers.append('Content-Type', 'application/json');
-    let options = new RequestOptions({ headers: headers });
+    let postHeader = new Headers({ Authorization: 'Bearer ' + token });
+    postHeader.append('Content-Type', 'application/json');
+    let options = new RequestOptions({ headers: postHeader });
     return this.http.post(url, body, options);
   }
 
@@ -68,8 +68,8 @@ export class AuthenticationService {
    */
   public getResource(url: string) {
     let token = localStorage.getItem('token');
-    let headers = new Headers({ 'Authentication-Token': token });
-    let options = new RequestOptions({ headers: headers });
+    let getHeader = new Headers({ Authorization: 'Bearer ' + token });
+    let options = new RequestOptions({ headers: getHeader });
     return this.http.get(url, options);
   }
 
@@ -77,13 +77,12 @@ export class AuthenticationService {
     let body = res.json();
     if (res.status === 200) {
       let response = 'response';
-      let user = 'user';
-      let tokenString = 'authentication_token';
-      let token = body[response][user][tokenString];
-      let maxTokenExpiryTime =
-        Math.floor(new Date().getTime() / 1000) + Number(body[response][user]['token_age']);
+      let tokenString = 'jwt';
+      let token = body[tokenString];
+      let expiry = new Date(body['exp']);
+      let maxTokenExpiryTime = expiry.getTime();
       localStorage.setItem('token', token);
-      localStorage.setItem('token_age', String(maxTokenExpiryTime));
+      localStorage.setItem('exp', String(maxTokenExpiryTime));
     }
   }
 
@@ -93,10 +92,10 @@ export class AuthenticationService {
    * based on the first time authentication from server
    */
   private checkTokenExpired() {
-
-    let expiryTime = Number(localStorage.getItem('token_age'));
+    let expiryTime = Number(localStorage.getItem('exp'));
     let curTime = Math.floor(new Date().getTime() / 1000);
     if (curTime > expiryTime) {
+      console.log('Session expired.');
       return true;
     }
     return false;

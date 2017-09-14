@@ -23,8 +23,8 @@ import { ROUTES } from './app.routes';
 // App is our top level component
 import { AppComponent } from './app.component';
 import { LoginFormComponent } from './login';
-import { NavbarComponent } from  './navbar';
-import { SessionExpiredComponent, NotFoundComponent }  from './utils';
+import { NavbarComponent } from './navbar';
+import { SessionExpiredComponent, NotFoundComponent } from './utils';
 import { ErrorMessageComponent } from './errormessage';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
@@ -84,7 +84,6 @@ export class AppModule {
     if (!store || !store.state) {
       return;
     }
-    console.log('HMR store', JSON.stringify(store, null, 2));
     // set state
     this.appState._state = store.state;
     // set input values
