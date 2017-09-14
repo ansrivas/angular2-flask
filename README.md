@@ -45,11 +45,7 @@ Simple angular2 app with python-flask backend (for learning angular2)
 
 4.  Now navigate to `http://localhost:3000` and login using default credential : `admin:admin`
 
-### Docker support:
-
-The current build is using `nginx` to serve static files. The pre-requisite is to run the following commands and then use `docker-compose`
-
-1. Build the frontend ( production build )
+5.  Extra Note: To create a production build
 
   ```bash
   cd front
@@ -57,7 +53,11 @@ The current build is using `nginx` to serve static files. The pre-requisite is t
   npm install
   npm run build:prod
   ```
-  
-4. Now, in project root directory execute `docker-compose up`
 
-3. Navigate to `http://localhost:3000` and login using `admin:admin`  
+### Docker support:
+
+The current build is using `nginx` to serve static files. The pre-requisite is to run the following commands and then use `docker-compose`
+
+1. In project root directory execute `docker-compose up`
+
+2. Navigate to `http://localhost:3000` and login using `admin:admin`  
