@@ -79,6 +79,7 @@ export class AuthenticationService {
       let response = 'response';
       let tokenString = 'jwt';
       let token = body[tokenString];
+      //TODO: Decode token and get expiry time from here, someone has to implement this. :(
       let expiry = new Date(body['exp']);
       let maxTokenExpiryTime = expiry.getTime();
       localStorage.setItem('token', token);
