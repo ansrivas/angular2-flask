@@ -1,12 +1,10 @@
 version: '2'
 services:
   backend-s:
-    build: ./backend
-    image: ansrivas/server:latest
+    image: ansrivas/flask-backend:latest
     container_name: backend-c
   frontend-s:
-    build: ./front
-    image: ansrivas/frontend:latest
+    image: ansrivas/angular2-frontend:latest
     container_name: frontend-c
     ports:
       - "3000:80"
