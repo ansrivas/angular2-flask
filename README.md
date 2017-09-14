@@ -1,20 +1,23 @@
 # angular2-flask
 ---
 
-`Angular2-Frontend`
+`Backend` [![DockerPulls](https://img.shields.io/docker/pulls/ansrivas/flask-backend.svg)](https://registry.hub.docker.com/u/ansrivas/flask-backend/)
+
+`Frontend`
 [![DockerPulls](https://img.shields.io/docker/pulls/ansrivas/angular2-frontend.svg)](https://registry.hub.docker.com/u/ansrivas/angular2-frontend/)
 
-`Flask-backend` [![DockerPulls](https://img.shields.io/docker/pulls/ansrivas/flask-backend.svg)](https://registry.hub.docker.com/u/ansrivas/flask-backend/)
 
 Simple angular2 app with python-flask backend (for learning angular2)
 
 ## Info
+---
 
 1.  `backend` directory contains the flask backend with simple authentication methods
 
 2.  `front` directory contains the angular2 frontend based on [angular-webpack-starter](https://github.com/AngularClass/angular2-webpack-starter)
 
 ## Usage
+---
 
 1.  Clone the repo
 
@@ -53,14 +56,15 @@ Simple angular2 app with python-flask backend (for learning angular2)
 
 5.  Extra Note: To create a production build
 
-  ```bash
-  cd front
-  npm install webpack-dev-server rimraf webpack typescript -g
-  npm install
-  npm run build:prod
-  ```
+    ```bash
+    cd front
+    npm install webpack-dev-server rimraf webpack typescript -g
+    npm install
+    npm run build:prod
+    ```
 
-### Docker support:
+## Docker support:
+---
 
 The current build is using `nginx` to serve static files. The pre-requisite is to run the following commands and then use `docker-compose`
 
