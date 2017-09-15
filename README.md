@@ -8,6 +8,16 @@
 
 Simple angular2 app with python-flask backend (for learning angular2)
 
+## Dockerized version:
+---
+
+The current build is using `nginx` to serve static files.
+
+1. In project root directory execute `docker-compose up`
+
+2. Navigate to `http://localhost:3000` and login using `admin:admin`
+
+
 ## Info
 ---
 
@@ -61,12 +71,3 @@ Simple angular2 app with python-flask backend (for learning angular2)
     npm install
     npm run build:prod
     ```
-
-## Docker support:
----
-
-The current build is using `nginx` to serve static files. The pre-requisite is to run the following commands and then use `docker-compose`
-
-1. In project root directory execute `docker-compose up`
-
-2. Navigate to `http://localhost:3000` and login using `admin:admin`  
