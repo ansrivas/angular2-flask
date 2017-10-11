@@ -70,4 +70,7 @@ The current build is using `nginx` to serve static files.
     npm install webpack-dev-server rimraf webpack typescript -g
     npm install
     npm run build:prod
+
+    # Serves on http://localhost:5000
+    npm run server:prod
     ```
