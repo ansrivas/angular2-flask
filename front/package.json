@@ -109,7 +109,7 @@
     "exports-loader": "^0.7.0",
     "expose-loader": "^0.7.3",
     "extract-text-webpack-plugin": "~2.1.0",
-    "file-loader": "^0.11.1",
+    "file-loader": "^2.0.0",
     "find-root": "^1.0.0",
     "gh-pages": "^1.0.0",
     "html-webpack-plugin": "^2.28.0",
