@@ -97,7 +97,7 @@
     "@types/node": "^14.0.1",
     "@types/source-map": "^0.5.0",
     "@types/uglify-js": "^3.0.5",
-    "@types/webpack": "^4.41.1",
+    "@types/webpack": "^5.0.0",
     "add-asset-html-webpack-plugin": "^1.0.2",
     "angular2-template-loader": "^0.6.2",
     "assets-webpack-plugin": "^6.0.1",
