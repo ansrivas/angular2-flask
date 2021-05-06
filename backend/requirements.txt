@@ -1,6 +1,6 @@
 flask>=0.12.3
 gevent==1.2.2
-Flask-Cors==3.0.3
+Flask-Cors==3.0.9
 Flask-Security==3.0.0
 Flask-SQLAlchemy==2.2
 git+https://github.com/ansrivas/pylogging.git
