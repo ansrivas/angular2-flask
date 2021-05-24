@@ -141,7 +141,7 @@
     "string-replace-loader": "~1.2.0",
     "style-loader": "^0.23.1",
     "to-string-loader": "^1.1.5",
-    "ts-node": "^9.0.0",
+    "ts-node": "^10.0.0",
     "tslib": "^2.0.0",
     "tslint": "~4.5.1",
     "tslint-loader": "^3.5.2",
