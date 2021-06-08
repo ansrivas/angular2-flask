@@ -152,7 +152,7 @@
     "webpack-dev-middleware": "^5.0.0",
     "webpack-dev-server": "~2.11.5",
     "webpack-dll-bundles-plugin": "^1.0.0-beta.5",
-    "webpack-merge": "~5.7.0"
+    "webpack-merge": "~5.8.0"
   },
   "repository": {
     "type": "git",
