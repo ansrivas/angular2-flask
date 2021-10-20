@@ -84,7 +84,7 @@
     "@angularclass/hmr": "~3.0.0",
     "@angularclass/hmr-loader": "^3.0.4",
     "core-js": "^3.4.2",
-    "http-server": "^13.0.0",
+    "http-server": "^14.0.0",
     "ie-shim": "^0.1.0",
     "reflect-metadata": "^0.1.10",
     "rxjs": "~5.5.12",
