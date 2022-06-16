@@ -94,7 +94,7 @@
     "@angular/compiler-cli": "~4.3.1",
     "@types/hammerjs": "^2.0.34",
     "@types/jasmine": "4.0.3",
-    "@types/node": "^17.0.0",
+    "@types/node": "^18.0.0",
     "@types/source-map": "^0.5.0",
     "@types/uglify-js": "^3.0.5",
     "@types/webpack": "^5.0.0",
